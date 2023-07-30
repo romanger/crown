@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { UserContext } from '../../context/user.context'
+import { CartContext } from '../../context/cart.context'
 import { Outlet, Link } from 'react-router-dom'
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
 import { signOutUser } from '../../utils/firebase/firebase.utils'
@@ -10,6 +11,7 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 
 const NavigationBar = () => {
     const { currentUser } = useContext(UserContext)
+    const { isCartOpen } = useContext(CartContext)
 
     return (
         <>
@@ -32,7 +34,7 @@ const NavigationBar = () => {
                     )}
                     <CartIcon />
                 </nav>
-                <CartDropdown />
+                {isCartOpen && <CartDropdown />}
             </header>
             <main>
                 <Outlet />

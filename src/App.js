@@ -2,6 +2,7 @@ import NavigationBar from './components/navigation-bar/navigation-bar.component'
 import Home from './pages/home/home.component'
 import Shop from './pages/shop/shop.component'
 import Authentication from './pages/authentication/authentication.component'
+import Checkout from './pages/checkout/checkout.component'
 
 import { Route, Routes } from 'react-router-dom'
 
@@ -13,6 +14,7 @@ const App = () => {
                 <Route path='shop' Component={Shop} />
                 <Route path='auth' Component={Authentication} />
             </Route>
+            <Route path='/checkout' Component={Checkout} />
         </Routes>
     )
 }
