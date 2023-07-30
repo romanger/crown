@@ -17,7 +17,11 @@ const addCartItem = (cartItems, productToAdd) => {
 }
 
 const removeCartItem = (cartItems, productToRemove) => {
-    if (productToRemove.quantity === 1) {
+    const existingCartItem = cartItems.find(
+        (cartItem) => cartItem.id === productToRemove.id
+    )
+
+    if (existingCartItem.quantity === 1) {
         return cartItems.filter((item) => item.id !== productToRemove.id)
     }
 
@@ -33,8 +37,8 @@ const deleteProduct = (cartItems, productToDelete) => {
 }
 
 const getTotalPrice = (cartItems) => {
-    return cartItems.reduce((acc , current) => {
-            return acc + (current.price * current.quantity)
+    return cartItems.reduce((acc, current) => {
+        return acc + current.price * current.quantity
     }, 0)
 }
 
@@ -59,6 +63,9 @@ export const CartProvider = ({ children }) => {
 
     useEffect(() => {
         setItemsQuantity(getItemsQuantity(cartItems))
+    }, [cartItems])
+
+    useEffect(() => {
         setTotalPrice(getTotalPrice(cartItems))
     }, [cartItems])
 
