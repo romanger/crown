@@ -1,12 +1,17 @@
 import { useContext } from 'react'
 import { UserContext } from '../../context/user.context'
 import { CartContext } from '../../context/cart.context'
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
 import { signOutUser } from '../../utils/firebase/firebase.utils'
 import CartIcon from '../cart-icon/cart-icon.component'
 
-import './navigation-bar.styles.scss'
+import {
+    NavLink,
+    NavLinksContainer,
+    NavigationContainer,
+    LogoContainer,
+} from './navigation-bar.styles'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 
 const NavigationBar = () => {
@@ -15,27 +20,23 @@ const NavigationBar = () => {
 
     return (
         <>
-            <header className='navigation'>
-                <Link className='logo-container' to='/'>
+            <NavigationContainer>
+                <LogoContainer to='/'>
                     <CrwnLogo className='logo' />
-                </Link>
-                <nav className='nav-links-container'>
-                    <Link className='nav-link' to='/shop'>
-                        Shop
-                    </Link>
+                </LogoContainer>
+                <NavLinksContainer>
+                    <NavLink to='/shop'>Shop</NavLink>
                     {currentUser ? (
-                        <span className='nav-link' onClick={signOutUser}>
+                        <NavLink as='span' onClick={signOutUser}>
                             Sign Out
-                        </span>
+                        </NavLink>
                     ) : (
-                        <Link className='nav-link' to='/auth'>
-                            Sign In
-                        </Link>
+                        <NavLink to='/auth'>Sign In</NavLink>
                     )}
                     <CartIcon />
-                </nav>
+                </NavLinksContainer>
                 {isCartOpen && <CartDropdown />}
-            </header>
+            </NavigationContainer>
             <main>
                 <Outlet />
             </main>
